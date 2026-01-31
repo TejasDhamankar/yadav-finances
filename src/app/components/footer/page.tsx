@@ -6,7 +6,7 @@ import { Linkedin, Twitter, Mail, ChevronRight, Activity } from 'lucide-react';
 export default function ModernFooter() {
   return (
     <footer id="about" className="bg-slate-950 text-white pt-24 pb-12 px-6 border-t-[10px] border-blue-700">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mb-20">
         
         {/* Brand Column */}
         <div className="space-y-8">
@@ -56,14 +56,18 @@ export default function ModernFooter() {
           <h4 className="text-blue-500 font-black text-xs uppercase tracking-[0.2em] mb-10">Contact Support</h4>
           <div className="space-y-8 font-bold text-xs uppercase tracking-tight">
             <div>
-              <p className="text-slate-500 mb-2 tracking-[0.1em]">Toll Free Number</p>
+              <p className="text-slate-500 mb-2 tracking-[0.1em]">Contact Number</p>
               <p className="text-xl text-white font-black hover:text-blue-500 transition-colors cursor-pointer tracking-tighter">
-                1800 555 9999
+                9034634807
               </p>
             </div>
             <div>
+              <p className="text-slate-500 mb-2 tracking-[0.1em]">Address</p>
+              <p className="text-white normal-case font-medium tracking-normal">Kurukshetra, Haryana</p>
+            </div>
+            <div>
               <p className="text-slate-500 mb-2 tracking-[0.1em]">Working Hours</p>
-              <p className="text-white">09:30 AM - 06:30 PM</p>
+              <p className="text-white normal-case font-medium tracking-normal">09:30 AM - 06:30 PM</p>
               <p className="text-blue-500 lowercase opacity-60 font-medium tracking-normal">Monday to Friday</p>
             </div>
           </div>
@@ -73,11 +77,11 @@ export default function ModernFooter() {
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">
         <p>&copy; {new Date().getFullYear()} Yadav Finance Technologies Limited.</p>
-        <div className="flex gap-8 mt-4 md:mt-0 items-center">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-4 md:mt-0 items-center">
           <span className="text-blue-700/50">CIN: U65999MH2024PLC123456</span>
-          <div className="h-1 w-1 bg-slate-800 rounded-full"></div>
+          <div className="h-1 w-1 bg-slate-800 rounded-full hidden md:block"></div>
           <a href="#" className="hover:text-white transition-colors">RBI Guidelines</a>
-          <div className="h-1 w-1 bg-slate-800 rounded-full"></div>
+          <div className="h-1 w-1 bg-slate-800 rounded-full hidden md:block"></div>
           <a href="#" className="hover:text-white transition-colors">Sitemap</a>
         </div>
       </div>

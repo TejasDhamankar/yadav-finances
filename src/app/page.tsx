@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import Image from 'next/image.js';
 import { 
   ShieldCheck, Users, ArrowRight, Wallet, TrendingUp, 
-  Building2, Activity, ChevronLeft, ChevronRight, CheckCircle2 
+  Building2, Activity, ChevronLeft, ChevronRight, CheckCircle2, Copy, Check,
+  Menu, X
 } from 'lucide-react';
 
 
@@ -51,6 +52,8 @@ const SLIDER_DATA = [
 export default function YadavFinance() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % SLIDER_DATA.length);
@@ -79,6 +82,13 @@ export default function YadavFinance() {
     };
   }, []);
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText('9034634807').then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-100">
       
@@ -93,12 +103,34 @@ export default function YadavFinance() {
             <a href="#products" className="hover:text-blue-700 transition-colors">Products</a>
             <a href="#solutions" className="hover:text-blue-700 transition-colors">Solutions</a>
             <a href="#about" className="hover:text-blue-700 transition-colors">About Us</a>
-            <button className="bg-blue-700 text-white px-6 py-2.5 rounded-full hover:bg-blue-800 transition-all shadow-lg shadow-blue-200/50 active:scale-95">
+            <a href="#contact" className="bg-blue-700 text-white px-6 py-2.5 rounded-full font-bold hover:bg-blue-800 transition-all shadow-lg shadow-blue-200/50 active:scale-95">
               Apply Now
+            </a>
+          </div>
+          <div className="md:hidden">
+            <button onClick={() => setIsMenuOpen(true)} className="text-slate-800">
+              <Menu size={28} />
             </button>
           </div>
         </div>
       </nav>
+
+      {/* --- MOBILE MENU --- */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center animate-fade-in-down">
+          <button onClick={() => setIsMenuOpen(false)} className="absolute top-7 right-6 text-slate-800">
+            <X size={30} />
+          </button>
+          <div className="flex flex-col items-center gap-10">
+            <a href="#products" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold text-slate-800 hover:text-blue-700 transition-colors">Products</a>
+            <a href="#solutions" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold text-slate-800 hover:text-blue-700 transition-colors">Solutions</a>
+            <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold text-slate-800 hover:text-blue-700 transition-colors">About Us</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-blue-800 transition-all shadow-lg shadow-blue-200/50 active:scale-95">
+              Apply Now
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* --- HERO SECTION --- */}
       <section ref={heroRef} className="relative pt-36 pb-24 overflow-hidden bg-slate-50/50 perspective-1000">
@@ -111,7 +143,7 @@ export default function YadavFinance() {
               <Activity size={16} className="animate-pulse"/>
               The Future of Digital Finance
             </div>
-            <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight">
               Navigate your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600">Financial Journey.</span>
             </h1>
@@ -119,9 +151,9 @@ export default function YadavFinance() {
               Yadav Finance combines next-gen technology with personalized strategies to help you grow wealth, secure assets, and scale faster.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-blue-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-800 transition-all shadow-xl shadow-blue-200/50 active:scale-95">
+              <a href="#contact" className="bg-blue-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-800 transition-all shadow-xl shadow-blue-200/50 active:scale-95">
                 Get Started <ArrowRight size={20} />
-              </button>
+              </a>
             </div>
           </div>
           
@@ -176,12 +208,12 @@ export default function YadavFinance() {
               </div>
 
               <div className="flex items-center gap-4">
-                <button className="bg-blue-700 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-800 transition-all shadow-lg shadow-blue-200">
+                <a href="#contact" className="inline-block bg-blue-700 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-800 transition-all shadow-lg shadow-blue-200">
                   Apply Now
-                </button>
-                <button className="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold hover:border-blue-600 hover:text-blue-600 transition-all">
+                </a>
+                <a href="#contact" className="inline-block border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold hover:border-blue-600 hover:text-blue-600 transition-all">
                   Know More
-                </button>
+                </a>
               </div>
 
               {/* Slider Navigation Controls */}
@@ -202,11 +234,43 @@ export default function YadavFinance() {
         </div>
       </section>
 
+      {/* --- CONTACT SECTION --- */}
+      <section id="contact" className="bg-white py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">Get in Touch</h2>
+          <p className="text-lg text-slate-600 mb-10">
+            Have questions or ready to start your financial journey with us? Contact us today.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 text-left bg-slate-50 p-10 rounded-2xl border border-slate-100">
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">Our Office</h3>
+              <p className="text-slate-600">Kurukshetra, Haryana</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">Contact Info</h3>
+              <div className="flex items-center gap-4">
+                <p className="text-slate-600">Phone: 9034634807</p>
+                <button 
+                  onClick={handleCopy} 
+                  className="text-sm font-bold text-blue-700 flex items-center gap-2 bg-blue-50 hover:bg-blue-100 transition-all px-4 py-2 rounded-lg active:scale-95"
+                >
+                  {isCopied ? (
+                    <><Check size={16} /> Copied</>
+                  ) : (
+                    <><Copy size={16} /> Copy No</>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* --- PRODUCTS CARDS SECTION --- */}
       <section id="solutions" className="py-28 max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-xl">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Financial products tailored for your growth.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Financial products tailored for your growth.</h2>
           </div>
           <a href="#" className="text-blue-700 font-bold flex items-center gap-2 group bg-blue-50 px-6 py-3 rounded-full hover:bg-blue-100 transition-all">
             Explore all <ArrowRight size={18} />
@@ -254,9 +318,9 @@ function ProductCard({ icon, title, desc, color }: { icon: React.ReactNode, titl
       </div>
       <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
       <p className="text-slate-600 leading-relaxed mb-8">{desc}</p>
-      <button className="text-sm font-bold text-blue-700 flex items-center gap-2 group-hover:gap-3 transition-all">
+      <a href="#contact" className="text-sm font-bold text-blue-700 flex items-center gap-2 group-hover:gap-3 transition-all">
         Learn More <ArrowRight size={16} />
-      </button>
+      </a>
     </div>
   );
 }
